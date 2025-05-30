@@ -13,7 +13,7 @@ function App() {
         <main style={{ paddingBottom: 32 }}>
           <Routes>
             <Route path="/" element={<MovieList />} />
-            <Route path="/:id" element={<MovieDetails />} />
+            <Route path="/:title" element={<MovieDetails />} />
           </Routes>
         </main>
         <Footer />
