@@ -1,6 +1,7 @@
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { Button, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import type { MovieAPIInterface } from "../models";
 import { fetchMovies } from "../services/api/movies";
 import Movie from "./Movie";
@@ -43,14 +44,20 @@ const MovieList = () => {
         }}
       >
         {currentMovies.map((movie, index) => (
-          <Movie
-            key={index}
-            title={movie.title}
-            year={movie.year}
-            href={movie.href}
-            thumbnail={movie.thumbnail}
-            genres={movie.genres}
-          />
+          <Link
+            to={`/${encodeURIComponent(movie.title)}`}
+            state={{ movie }}
+            key={movie.title}
+          >
+            <Movie
+              key={index}
+              title={movie.title}
+              year={movie.year}
+              href={movie.href}
+              thumbnail={movie.thumbnail}
+              genres={movie.genres}
+            />
+          </Link>
         ))}
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
