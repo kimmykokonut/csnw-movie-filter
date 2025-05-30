@@ -34,15 +34,25 @@ const MovieList = () => {
         Filter
       </Button>
       <hr />
-      {currentMovies.map((movie, index) => (
-        <Movie
-          key={index}
-          title={movie.title}
-          year={movie.year}
-          href={movie.href}
-          thumbnail={movie.thumbnail}
-        />
-      ))}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "1rem",
+        }}
+      >
+        {currentMovies.map((movie, index) => (
+          <Movie
+            key={index}
+            title={movie.title}
+            year={movie.year}
+            href={movie.href}
+            thumbnail={movie.thumbnail}
+            genres={movie.genres}
+          />
+        ))}
+      </div>
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <Pagination
           count={totalPages}

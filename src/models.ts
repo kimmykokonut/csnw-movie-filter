@@ -4,11 +4,16 @@
 export interface MovieAPIInterface {
   title: string;
   year: number;
+  href: string;
+  thumbnail: string;
   cast: string[];
   genres: string[];
-  href: string;
   extract: string;
-  thumbnail: string;
   thumbnail_width: number;
   thumbnail_height: number;
 }
+
+export type MovieCardInterface = Pick<
+  MovieAPIInterface,
+  "title" | "year" | "href" | "thumbnail" | "genres"
+>;
