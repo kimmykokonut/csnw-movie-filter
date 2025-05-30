@@ -28,6 +28,10 @@ const Movie: React.FC<MovieCardInterface> = ({
           height="140"
           image={thumbnail || fallback}
           alt={title}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = fallback;
+          }}
         />
         <CardContent>
           <h3>{title}</h3>
