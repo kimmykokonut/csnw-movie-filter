@@ -7,7 +7,7 @@ import Movie from "./Movie";
 
 const MovieList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(12);
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
 
   useEffect(() => {
