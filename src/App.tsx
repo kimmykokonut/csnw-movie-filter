@@ -10,10 +10,12 @@ function App() {
     <>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<MovieList />} />
-          <Route path="/:id" element={<MovieDetails />} />
-        </Routes>
+        <main style={{ paddingBottom: 32 }}>
+          <Routes>
+            <Route path="/" element={<MovieList />} />
+            <Route path="/:id" element={<MovieDetails />} />
+          </Routes>
+        </main>
         <Footer />
       </Router>
     </>
