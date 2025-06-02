@@ -49,7 +49,15 @@ const FilterForm = ({ onClose, onSubmit }: FilterFormProps) => {
             </select>
           </div>
           <div>
-            <p>genre here</p>
+            <p>By Genre</p>
+            <div>
+              <input type="checkbox" id="action" name="action" />
+              <label htmlFor="action">Action</label>
+              <input type="checkbox" id="adventure" name="adventure" />
+              <label htmlFor="adventure">adventure</label>
+              <input type="checkbox" id="animation" name="animation" />
+              <label htmlFor="animation">animation</label>
+            </div>
           </div>
         </DialogContent>
         <DialogActions>
