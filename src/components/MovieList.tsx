@@ -13,6 +13,7 @@ const MovieList = () => {
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
   const [allMovies, setAllMovies] = useState<MovieAPIInterface[]>([]);
   const [openFilter, setOpenFilter] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("1900-2023");
 
   useEffect(() => {
     const loadAllMovies = async () => {
@@ -38,14 +39,18 @@ const MovieList = () => {
   const handleFilterSubmit = (filters: { decade?: string }) => {
     if (filters.decade) {
       console.log("decade", filters);
+      console.log("type", typeof filters.decade);
       if (filters.decade === "all") {
         setMovies(allMovies);
+        setActiveFilter("1900-2023");
       } else {
         const decadeStart = parseInt(filters.decade);
+        console.log("type decstart", typeof decadeStart);
         const filteredMovies = allMovies.filter((movie) => {
           return movie.year >= decadeStart && movie.year < decadeStart + 10;
         });
         setMovies(filteredMovies);
+        setActiveFilter(filters.decade);
       }
     }
     setCurrentPage(1);
@@ -55,7 +60,7 @@ const MovieList = () => {
 
   return (
     <>
-      <h2>Movies from 1900 to 2023</h2>
+      <h2>Movies: {activeFilter}</h2>
       {/* Filter Button and Form Component  */}
       <Button
         variant="contained"
