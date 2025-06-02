@@ -19,7 +19,6 @@ const FilterForm = ({ onClose, onSubmit }: FilterFormProps) => {
       filters.decade = decade;
     }
     // add genre later
-    alert(`you chose ${decade}`);
     onSubmit(filters);
     onClose();
   };
@@ -32,7 +31,7 @@ const FilterForm = ({ onClose, onSubmit }: FilterFormProps) => {
           <div>
             <label htmlFor="decade">By Decade:</label>
             <select name="decade" id="decade">
-              <option value="">All Decades</option>
+              <option value="all">All Decades</option>
               <option value="1900">1900s</option>
               <option value="1910">1910s</option>
               <option value="1920">1920s</option>
@@ -74,12 +73,6 @@ const FilterForm = ({ onClose, onSubmit }: FilterFormProps) => {
 export default FilterForm;
 
 //mui example
-// <DialogTitle>Subscribe</DialogTitle>
-// <DialogContent>
-//   <DialogContentText>
-//     To subscribe to this website, please enter your email address here. We
-//     will send updates occasionally.
-//   </DialogContentText>
 //   <TextField
 //     autoFocus
 //     required
@@ -92,7 +85,3 @@ export default FilterForm;
 //     variant="standard"
 //   />
 // </DialogContent>
-// <DialogActions>
-//   <Button onClick={handleClose}>Cancel</Button>
-//   <Button type="submit">Subscribe</Button>
-// </DialogActions>

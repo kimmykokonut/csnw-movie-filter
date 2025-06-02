@@ -11,14 +11,16 @@ const MovieList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
+  const [allMovies, setAllMovies] = useState<MovieAPIInterface[]>([]);
   const [openFilter, setOpenFilter] = useState(false);
 
   useEffect(() => {
-    const loadMovies = async () => {
+    const loadAllMovies = async () => {
       const data = await fetchMovies();
       setMovies(data);
+      setAllMovies(data);
     };
-    loadMovies();
+    loadAllMovies();
   }, []);
 
   const totalPages = Math.ceil(movies.length / itemsPerPage);
@@ -31,6 +33,24 @@ const MovieList = () => {
   };
   const handleCloseFilter = () => {
     setOpenFilter(false);
+  };
+
+  const handleFilterSubmit = (filters: { decade?: string }) => {
+    if (filters.decade) {
+      console.log("decade", filters);
+      if (filters.decade === "all") {
+        setMovies(allMovies);
+      } else {
+        const decadeStart = parseInt(filters.decade);
+        const filteredMovies = allMovies.filter((movie) => {
+          return movie.year >= decadeStart && movie.year < decadeStart + 10;
+        });
+        setMovies(filteredMovies);
+      }
+    }
+    setCurrentPage(1);
+    // if genre, do api call next.
+    handleCloseFilter();
   };
 
   return (
@@ -46,13 +66,7 @@ const MovieList = () => {
         Filter
       </Button>
       <Dialog open={openFilter} onClose={handleCloseFilter}>
-        <FilterForm
-          onClose={handleCloseFilter}
-          onSubmit={(decade) => {
-            console.log("submit clicked", decade);
-            handleCloseFilter();
-          }}
-        />
+        <FilterForm onClose={handleCloseFilter} onSubmit={handleFilterSubmit} />
       </Dialog>
       <hr />
       {/* List of movie results */}
