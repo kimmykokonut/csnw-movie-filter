@@ -13,8 +13,9 @@ const MovieList = () => {
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
   const [allMovies, setAllMovies] = useState<MovieAPIInterface[]>([]);
   const [openFilter, setOpenFilter] = useState(false);
-  const [activeFilter, setActiveFilter] = useState<string>("1900-2023");
-  const [genres, setGenres] = useState<[]>([]);
+  const [decadeFilter, setDecadeFilter] = useState<string>("1900-2023");
+  const [genreFilter, setGenreFilter] = useState<string>("");
+  const [genres, setGenres] = useState<string[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -41,28 +42,45 @@ const MovieList = () => {
     setOpenFilter(false);
   };
 
-  const handleFilterSubmit = (filters: { decade?: string }) => {
-    if (filters.decade) {
-      if (filters.decade === "all") {
-        setMovies(allMovies);
-        setActiveFilter("1900-2023");
-      } else {
-        const decadeStart = parseInt(filters.decade);
-        const filteredMovies = allMovies.filter((movie) => {
-          return movie.year >= decadeStart && movie.year < decadeStart + 10;
-        });
-        setMovies(filteredMovies);
-        setActiveFilter(filters.decade);
-      }
+  const handleFilterSubmit = (filters: {
+    decade: string;
+    genres?: string[];
+  }) => {
+    // reset state to defaults
+    setMovies(allMovies);
+    setDecadeFilter("1900-2023");
+    setGenreFilter("");
+
+    console.log("filters in index", filters);
+
+    // filter by decade
+    if (filters.decade.length > 0) {
+      const decadeStart = parseInt(filters.decade);
+      const filteredByDecade = allMovies.filter((movie) => {
+        return movie.year >= decadeStart && movie.year < decadeStart + 10;
+      });
+      setMovies(filteredByDecade);
+      setDecadeFilter(`${filters.decade}s`);
     }
+
+    // if user chose genre, filter current movies by selected genres.
+    if (filters.genres) {
+      const selectedGenres = filters.genres;
+      const filteredByGenre = movies.filter((movie) =>
+        movie.genres.some((movieGenre) => selectedGenres.includes(movieGenre))
+      );
+      setMovies(filteredByGenre);
+      setGenreFilter(selectedGenres.join(", "));
+    }
+
     setCurrentPage(1);
-    // if genre, do api call next.
     handleCloseFilter();
   };
 
   return (
     <>
-      <h2>Movies: {activeFilter}</h2>
+      <h2>Movies: {decadeFilter}</h2>
+      <h4>{genreFilter}</h4>
       <p>{movies.length} records</p>
       {/* Filter Button and Form Component  */}
       <Button
@@ -107,6 +125,7 @@ const MovieList = () => {
           </Link>
         ))}
       </div>
+      {/* Pagination of results */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <Pagination
           count={totalPages}
