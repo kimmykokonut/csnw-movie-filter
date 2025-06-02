@@ -3,25 +3,30 @@ import { Button, Dialog, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { MovieAPIInterface } from "../models";
-import { fetchMovies } from "../services/api/movies";
+import { fetchGenres, fetchMovies } from "../services/api/movies";
 import FilterForm from "./FilterForm";
 import Movie from "./Movie";
 
 const MovieList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(12);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(12);
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
   const [allMovies, setAllMovies] = useState<MovieAPIInterface[]>([]);
   const [openFilter, setOpenFilter] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("1900-2023");
+  const [activeFilter, setActiveFilter] = useState<string>("1900-2023");
+  const [genres, setGenres] = useState<[]>([]);
 
   useEffect(() => {
-    const loadAllMovies = async () => {
-      const data = await fetchMovies();
-      setMovies(data);
-      setAllMovies(data);
+    const loadData = async () => {
+      const [movieData, genreData] = await Promise.all([
+        fetchMovies(),
+        fetchGenres(),
+      ]);
+      setMovies(movieData);
+      setAllMovies(movieData);
+      setGenres(genreData);
     };
-    loadAllMovies();
+    loadData();
   }, []);
 
   const totalPages = Math.ceil(movies.length / itemsPerPage);
@@ -38,14 +43,11 @@ const MovieList = () => {
 
   const handleFilterSubmit = (filters: { decade?: string }) => {
     if (filters.decade) {
-      console.log("decade", filters);
-      console.log("type", typeof filters.decade);
       if (filters.decade === "all") {
         setMovies(allMovies);
         setActiveFilter("1900-2023");
       } else {
         const decadeStart = parseInt(filters.decade);
-        console.log("type decstart", typeof decadeStart);
         const filteredMovies = allMovies.filter((movie) => {
           return movie.year >= decadeStart && movie.year < decadeStart + 10;
         });
@@ -61,6 +63,7 @@ const MovieList = () => {
   return (
     <>
       <h2>Movies: {activeFilter}</h2>
+      <p>{movies.length} records</p>
       {/* Filter Button and Form Component  */}
       <Button
         variant="contained"
@@ -71,7 +74,11 @@ const MovieList = () => {
         Filter
       </Button>
       <Dialog open={openFilter} onClose={handleCloseFilter}>
-        <FilterForm onClose={handleCloseFilter} onSubmit={handleFilterSubmit} />
+        <FilterForm
+          onClose={handleCloseFilter}
+          onSubmit={handleFilterSubmit}
+          genres={genres}
+        />
       </Dialog>
       <hr />
       {/* List of movie results */}
