@@ -8,17 +8,25 @@ import {
 interface FilterFormProps {
   onClose: () => void;
   onSubmit: (filters: { decade?: string; genres?: string[] }) => void;
+  genres: string[];
 }
 
-const FilterForm = ({ onClose, onSubmit }: FilterFormProps) => {
+const FilterForm = ({ onClose, onSubmit, genres }: FilterFormProps) => {
   const handleFilter = (formData: FormData) => {
     const filters: { decade?: string; genres?: string[] } = {};
-    // only add if selected
     const decade = formData.get("decade") as string;
+    const selectedGenres = genres.filter(
+      (genre) => formData.get(genre) === "on"
+    );
+
     if (decade) {
       filters.decade = decade;
     }
-    // add genre later
+    if (selectedGenres.length > 0) {
+      filters.genres = selectedGenres;
+    }
+
+    console.log("filters from handle", filters);
     onSubmit(filters);
     onClose();
   };
@@ -50,12 +58,14 @@ const FilterForm = ({ onClose, onSubmit }: FilterFormProps) => {
           <div>
             <p>By Genre</p>
             <div>
-              <input type="checkbox" id="action" name="action" />
-              <label htmlFor="action">Action</label>
-              <input type="checkbox" id="adventure" name="adventure" />
-              <label htmlFor="adventure">adventure</label>
-              <input type="checkbox" id="animation" name="animation" />
-              <label htmlFor="animation">animation</label>
+              {genres.map((genre) => (
+                <div key={genre}>
+                  <label htmlFor={genre}>
+                    {genre}
+                    <input type="checkbox" id={genre} name={genre} />
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
         </DialogContent>
