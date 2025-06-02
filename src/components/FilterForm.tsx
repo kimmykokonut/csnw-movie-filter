@@ -31,11 +31,11 @@ const FilterForm = ({ onClose, onSubmit, genres }: FilterFormProps) => {
   return (
     <>
       <form action={handleFilter}>
-        <DialogTitle>Filter Movie Results</DialogTitle>
+        <DialogTitle id="filter-dialog-title">Filter Movie Results</DialogTitle>
         <DialogContent>
           <div>
             <label htmlFor="decade">By Decade:</label>
-            <select name="decade" id="decade">
+            <select name="decade" id="decade" autoFocus>
               <option value="">All Decades</option>
               <option value="1900">1900s</option>
               <option value="1910">1910s</option>

@@ -91,7 +91,12 @@ const MovieList = () => {
       >
         Filter
       </Button>
-      <Dialog open={openFilter} onClose={handleCloseFilter}>
+      <Dialog
+        open={openFilter}
+        onClose={handleCloseFilter}
+        aria-labelledby="filter-dialog-title"
+        disableRestoreFocus
+      >
         <FilterForm
           onClose={handleCloseFilter}
           onSubmit={handleFilterSubmit}
