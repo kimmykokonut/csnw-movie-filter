@@ -1,15 +1,17 @@
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { Button, Pagination } from "@mui/material";
+import { Button, Dialog, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { MovieAPIInterface } from "../models";
 import { fetchMovies } from "../services/api/movies";
+import FilterForm from "./FilterForm";
 import Movie from "./Movie";
 
 const MovieList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
+  const [openFilter, setOpenFilter] = useState(false);
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -24,17 +26,36 @@ const MovieList = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentMovies = movies.slice(startIndex, endIndex);
 
+  const handleOpenFilter = () => {
+    setOpenFilter(true);
+  };
+  const handleCloseFilter = () => {
+    setOpenFilter(false);
+  };
+
   return (
     <>
       <h2>Movies from 1900 to 2023</h2>
+      {/* Filter Button and Form Component  */}
       <Button
         variant="contained"
         color="secondary"
         startIcon={<FilterListIcon />}
+        onClick={handleOpenFilter}
       >
         Filter
       </Button>
+      <Dialog open={openFilter} onClose={handleCloseFilter}>
+        <FilterForm
+          onClose={handleCloseFilter}
+          onSubmit={(decade) => {
+            console.log("submit clicked", decade);
+            handleCloseFilter();
+          }}
+        />
+      </Dialog>
       <hr />
+      {/* List of movie results */}
       <div
         style={{
           display: "flex",
