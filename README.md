@@ -11,8 +11,8 @@ _by [Kim Robinson](https://github.com/kimmykokonut)_
 
 ## Setup
 1. clone
-2. install
-3. run server [locally](http://localhost:5173/)
+2. install `npm install`
+3. run server `npm run dev` [locally](http://localhost:5173/)
 
 --------------------------------
 # React + TypeScript + Vite
