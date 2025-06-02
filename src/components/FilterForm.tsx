@@ -7,26 +7,23 @@ import {
 
 interface FilterFormProps {
   onClose: () => void;
-  onSubmit: (filters: { decade?: string; genres?: string[] }) => void;
+  onSubmit: (filters: { decade: string; genres?: string[] }) => void;
   genres: string[];
 }
 
 const FilterForm = ({ onClose, onSubmit, genres }: FilterFormProps) => {
   const handleFilter = (formData: FormData) => {
-    const filters: { decade?: string; genres?: string[] } = {};
-    const decade = formData.get("decade") as string;
+    const filters: { decade: string; genres?: string[] } = {
+      decade: formData.get("decade") as string,
+    };
+
     const selectedGenres = genres.filter(
       (genre) => formData.get(genre) === "on"
     );
-
-    if (decade) {
-      filters.decade = decade;
-    }
     if (selectedGenres.length > 0) {
       filters.genres = selectedGenres;
     }
 
-    console.log("filters from handle", filters);
     onSubmit(filters);
     onClose();
   };
@@ -39,7 +36,7 @@ const FilterForm = ({ onClose, onSubmit, genres }: FilterFormProps) => {
           <div>
             <label htmlFor="decade">By Decade:</label>
             <select name="decade" id="decade">
-              <option value="all">All Decades</option>
+              <option value="">All Decades</option>
               <option value="1900">1900s</option>
               <option value="1910">1910s</option>
               <option value="1920">1920s</option>
