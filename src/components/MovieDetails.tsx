@@ -6,10 +6,11 @@ const MovieDetails = () => {
   const location = useLocation();
   const movie = location.state?.movie;
 
-  if (!movie) return <p>Moive not found</p>;
+  if (!movie) return <p>Movie not found</p>;
 
   return (
     <>
+      {/* Title, Image and Description */}
       <h2>
         {movie.title} ({movie.year})
       </h2>
@@ -24,6 +25,7 @@ const MovieDetails = () => {
         }}
       />{" "}
       {movie.extract && <p>{movie.extract}</p>}
+      {/* Genres if provided, shown as chips */}
       {movie.genres.length > 0 &&
         movie.genres.map((genre: string, index: number) => (
           <Chip
@@ -34,14 +36,16 @@ const MovieDetails = () => {
             sx={{ m: 0.25 }}
           />
         ))}
+      {/* Cast if provided */}
       <p>Cast:</p>
       {movie.cast.length === 0 && <p>No cast list provided</p>}
-      <ul>
+      <ul style={{ listStyleType: "none" }}>
         {movie.cast.length > 0 &&
           movie.cast.map((actor: string, index: number) => (
             <li key={index}>{actor}</li>
           ))}
       </ul>
+      {/* Link to wikipedia source */}
       {movie.href && (
         <a
           href={`https://en.wikipedia.org/wiki/${movie.href}`}

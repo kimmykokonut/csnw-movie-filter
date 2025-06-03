@@ -12,7 +12,7 @@ interface FilterFormProps {
 }
 
 const FilterForm = ({ onClose, onSubmit, genres }: FilterFormProps) => {
-  const handleFilter = (formData: FormData) => {
+  const filterMovies = (formData: FormData) => {
     const filters: { decade: string; genres?: string[] } = {
       decade: formData.get("decade") as string,
     };
@@ -30,7 +30,7 @@ const FilterForm = ({ onClose, onSubmit, genres }: FilterFormProps) => {
 
   return (
     <>
-      <form action={handleFilter}>
+      <form action={filterMovies}>
         <DialogTitle id="filter-dialog-title">Filter Movie Results</DialogTitle>
         <DialogContent>
           <div>

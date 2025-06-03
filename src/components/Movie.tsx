@@ -21,7 +21,6 @@ const Movie: React.FC<MovieCardInterface> = ({
         backgroundColor: "paperwhite",
       }}
     >
-      {/* <Link to={{ pathname: "/{title? id}" }}> */}
       <CardActionArea>
         <CardMedia
           component="img"

@@ -35,23 +35,10 @@ const MovieList = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentMovies = movies.slice(startIndex, endIndex);
 
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
-
-  const handleFilterSubmit = (filters: {
-    decade: string;
-    genres?: string[];
-  }) => {
-    // reset state to defaults
+  const handleFilter = (filters: { decade: string; genres?: string[] }) => {
     setMovies(allMovies);
     setDecadeFilter("1900-2023");
     setGenreFilter("");
-
-    console.log("filters in index", filters);
 
     // filter by decade
     if (filters.decade.length > 0) {
@@ -74,32 +61,32 @@ const MovieList = () => {
     }
 
     setCurrentPage(1);
-    handleCloseFilter();
+    setOpenFilter(false);
   };
 
   return (
     <>
       <h2>Movies: {decadeFilter}</h2>
-      <h4>{genreFilter}</h4>
+      <p>{genreFilter}</p>
       <p>{movies.length} records</p>
       {/* Filter Button and Form Component  */}
       <Button
         variant="contained"
         color="secondary"
         startIcon={<FilterListIcon />}
-        onClick={handleOpenFilter}
+        onClick={() => setOpenFilter(true)}
       >
         Filter
       </Button>
       <Dialog
         open={openFilter}
-        onClose={handleCloseFilter}
+        onClose={() => setOpenFilter(false)}
         aria-labelledby="filter-dialog-title"
         disableRestoreFocus
       >
         <FilterForm
-          onClose={handleCloseFilter}
-          onSubmit={handleFilterSubmit}
+          onClose={() => setOpenFilter(false)}
+          onSubmit={handleFilter}
           genres={genres}
         />
       </Dialog>

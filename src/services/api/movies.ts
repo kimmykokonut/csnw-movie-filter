@@ -1,17 +1,25 @@
 import type { MovieAPIInterface } from "../../models";
 
-// change to env later
-const BASE_URL =
-  "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json";
-const GENRE_URL =
-  "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/genres.json";
+/**
+ * API configuration
+ */
+const API_CONFIG = {
+  baseUrl:
+    "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master",
+  endpoints: {
+    movies: "/movies.json",
+    genres: "/genres.json",
+  },
+} as const;
 
 /**
- * API call to fetch full list of movie results from github raw file
+ * Fetch full list of movie results from github raw file
  */
 export async function fetchMovies(): Promise<MovieAPIInterface[]> {
   try {
-    const response = await fetch(BASE_URL);
+    const response = await fetch(
+      `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.movies}`
+    );
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Error ${response.status}: ${errorText}`);
@@ -28,7 +36,9 @@ export async function fetchMovies(): Promise<MovieAPIInterface[]> {
  */
 export async function fetchGenres(): Promise<string[]> {
   try {
-    const response = await fetch(GENRE_URL);
+    const response = await fetch(
+      `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.genres}`
+    );
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Error ${response.status}: ${errorText}`);

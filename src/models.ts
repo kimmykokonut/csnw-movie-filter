@@ -13,6 +13,9 @@ export interface MovieAPIInterface {
   thumbnail_height: number;
 }
 
+/**
+ * Partial interface for List page with limited info
+ */
 export type MovieCardInterface = Pick<
   MovieAPIInterface,
   "title" | "year" | "href" | "thumbnail" | "genres"
