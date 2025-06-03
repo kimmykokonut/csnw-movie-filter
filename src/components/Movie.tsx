@@ -24,9 +24,13 @@ const Movie: React.FC<MovieCardInterface> = ({
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
           image={thumbnail || fallback}
           alt={title}
+          sx={{
+            width: "100%",
+            height: 200,
+            objectFit: "contain",
+          }}
           onError={(e) => {
             e.currentTarget.onerror = null;
             e.currentTarget.src = fallback;
