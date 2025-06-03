@@ -1,7 +1,7 @@
 # 🎥 Film Finder 🔎
 _by [Kim Robinson](https://github.com/kimmykokonut)_
 
-<a href="https://film-finder-aoen111zb-kimmykokonuts-projects.vercel.app/" alt="hosted site">See it live on Vercel</a>
+<a href="https://film-finder-sigma-black.vercel.app/" alt="hosted site">See it live on Vercel</a>
 
 ### 🎯 Assignment:
   - Write a simple website that utilizes [wikipedia movie data](https://github.com/prust/wikipedia-movie-data) to display a list of movies
