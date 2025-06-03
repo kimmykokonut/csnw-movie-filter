@@ -1,5 +1,7 @@
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { Button, Dialog, Pagination } from "@mui/material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import GridViewIcon from "@mui/icons-material/GridView";
+import { Button, Dialog, IconButton, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { MovieAPIInterface } from "../models";
@@ -16,6 +18,7 @@ const MovieList = () => {
   const [decadeFilter, setDecadeFilter] = useState<string>("1900-2023");
   const [genreFilter, setGenreFilter] = useState<string>("");
   const [genres, setGenres] = useState<string[]>([]);
+  const [currentView, setCurrentView] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
     const loadData = async () => {
@@ -64,6 +67,10 @@ const MovieList = () => {
     setOpenFilter(false);
   };
 
+  const toggleView = () => {
+    setCurrentView((view) => (view === "list" ? "grid" : "list"));
+  };
+
   return (
     <>
       <h2>Movies: {decadeFilter}</h2>
@@ -90,6 +97,14 @@ const MovieList = () => {
           genres={genres}
         />
       </Dialog>
+      <IconButton
+        color="secondary"
+        onClick={toggleView}
+        aria-label="`Switch to ${currentView === 'grid' ? 'list' : 'grid'} view`}"
+      >
+        {currentView === "grid" ? <FormatListBulletedIcon /> : <GridViewIcon />}
+      </IconButton>
+
       <hr />
       {/* List of movie results */}
       <div
