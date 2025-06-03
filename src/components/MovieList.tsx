@@ -97,6 +97,8 @@ const MovieList = () => {
         onClose={() => setOpenFilter(false)}
         aria-labelledby="filter-dialog-title"
         disableRestoreFocus
+        maxWidth="sm"
+        fullWidth
       >
         <FilterForm
           onClose={() => setOpenFilter(false)}
@@ -159,30 +161,21 @@ const MovieList = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {movie.title}
+                    <Link
+                      to={`/${encodeURIComponent(movie.title)}`}
+                      state={{ movie }}
+                      key={movie.title}
+                    >
+                      {movie.title}
+                    </Link>
                   </TableCell>
-                  <TableCell align="left">{movie.genres}</TableCell>
+                  <TableCell align="left">{movie.genres.join(", ")}</TableCell>
                   <TableCell align="right">{movie.year}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-
-        // <table>
-        //   <tr>
-        //     <th>Title</th>
-        //     <th>Genres</th>
-        //     <th>Year</th>
-        //   </tr>
-        //   {currentMovies.map((movie, index) => (
-        //     <tr key={index}>
-        //       <td>{movie.title}</td>
-        //       <td>{movie.genres}</td>
-        //       <td>{movie.year}</td>
-        //     </tr>
-        //   ))}
-        // </table>
       )}
       {/* Pagination of results */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
