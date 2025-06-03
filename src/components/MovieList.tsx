@@ -11,12 +11,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type { MovieAPIInterface } from "../models";
+import type { FilterValues, MovieAPIInterface } from "../models";
 import { fetchGenres, fetchMovies } from "../services/api/movies";
 import FilterForm from "./FilterForm";
 import Movie from "./Movie";
 
-const MovieList = () => {
+const MovieList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage] = useState<number>(24);
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
@@ -28,7 +28,7 @@ const MovieList = () => {
   const [currentView, setCurrentView] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
-    const loadData = async () => {
+    const loadData = async (): Promise<void> => {
       const [movieData, genreData] = await Promise.all([
         fetchMovies(),
         fetchGenres(),
@@ -45,7 +45,7 @@ const MovieList = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentMovies = movies.slice(startIndex, endIndex);
 
-  const handleFilter = (filters: { decade: string; genres?: string[] }) => {
+  const handleFilter = (filters: FilterValues): void => {
     let filteredMovies = allMovies;
     // reset filter display
     setDecadeFilter("1900-2023");
@@ -74,7 +74,7 @@ const MovieList = () => {
     setOpenFilter(false);
   };
 
-  const toggleView = () => {
+  const toggleView = (): void => {
     setCurrentView((view) => (view === "list" ? "grid" : "list"));
   };
 
@@ -109,11 +109,12 @@ const MovieList = () => {
       <IconButton
         color="secondary"
         onClick={toggleView}
-        aria-label="`Switch to ${currentView === 'grid' ? 'list' : 'grid'} view`}"
+        aria-label={`Switch to ${
+          currentView === "grid" ? "list" : "grid"
+        } view`}
       >
         {currentView === "grid" ? <FormatListBulletedIcon /> : <GridViewIcon />}
       </IconButton>
-
       <hr />
       {/* List of movie results */}
       {/* Grid View  */}
@@ -126,14 +127,13 @@ const MovieList = () => {
             gap: "1rem",
           }}
         >
-          {currentMovies.map((movie, index) => (
+          {currentMovies.map((movie) => (
             <Link
               to={`/${encodeURIComponent(movie.title)}`}
               state={{ movie }}
-              key={movie.title}
+              key={`${movie.title}-${movie.year}`}
             >
               <Movie
-                key={index}
                 title={movie.title}
                 year={movie.year}
                 href={movie.href}
@@ -155,16 +155,15 @@ const MovieList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentMovies.map((movie, index) => (
+              {currentMovies.map((movie) => (
                 <TableRow
-                  key={index}
+                  key={`${movie.title}-${movie.year}`}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
                     <Link
                       to={`/${encodeURIComponent(movie.title)}`}
                       state={{ movie }}
-                      key={movie.title}
                     >
                       {movie.title}
                     </Link>
@@ -182,7 +181,9 @@ const MovieList = () => {
         <Pagination
           count={totalPages}
           page={currentPage}
-          onChange={(_, value) => setCurrentPage(value)}
+          onChange={(_: React.ChangeEvent<unknown>, value: number) =>
+            setCurrentPage(value)
+          }
           color="secondary"
           sx={{
             "& .MuiPaginationItem-root, & .Mui-selected": {

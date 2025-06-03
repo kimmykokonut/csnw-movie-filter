@@ -20,3 +20,11 @@ export type MovieCardInterface = Pick<
   MovieAPIInterface,
   "title" | "year" | "href" | "thumbnail" | "genres"
 >;
+
+/**
+ * Interface for filter form state values
+ */
+export interface FilterValues {
+  decade: string;
+  genres?: string[];
+}
