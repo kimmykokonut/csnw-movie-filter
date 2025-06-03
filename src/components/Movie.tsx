@@ -54,5 +54,4 @@ const Movie: React.FC<MovieCardInterface> = ({
     </Card>
   );
 };
-
 export default Movie;

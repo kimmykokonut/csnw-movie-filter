@@ -3,17 +3,11 @@ _by [Kim Robinson](https://github.com/kimmykokonut)_
 
 <a href="https://film-finder-sigma-black.vercel.app/" alt="hosted site">See it live on Vercel</a>
 
-<div style="display: flex; justify-content: space-around;">
-  <div style="width: 33%;">
-  <img src="./src/assets/movies-grid.png" alt="Movies list page as cards" width="100%">
-  </div>
-    <div style="width: 33%;">
-  <img src="./src/assets/movies-list.png" alt="Movie list page" width="100%">
-  </div>
-  <div style="width: 33%;">
-  <img src="./src/assets/details-page.png" alt="Movie detail page" width="100%">
-  </div>
-  </div>
+<p align="left">
+  <img src="./src/assets/movies-grid.png" alt="Movies list page as cards" width="300">
+  <img src="./src/assets/movies-list.png" alt="Movie list page" width="300">
+  <img src="./src/assets/details-page.png" alt="Movie detail page" width="300">
+</p>
 
 
 ### 🎯 Assignment:
