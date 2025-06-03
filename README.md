@@ -47,6 +47,7 @@ _by [Kim Robinson](https://github.com/kimmykokonut)_
 - 📱 Responsive design works on mobile and desktop
 - 🎨 Material-UI components for a modern look
 - 📄 Pagination for better performance
+- 🗂️ Toggle between grid and list views on the index page for flexible browsing
 - 🔍 Clean and intuitive filtering interface
 
 ## 🏗️ Architecture
@@ -71,6 +72,13 @@ _by [Kim Robinson](https://github.com/kimmykokonut)_
 - [ ] Memoization with useMemo for filtered results
 - [ ] User authentication
 - [ ] Enhanced MUI theming and styling - felt out of scope for project goals/time
+- [ ] Add keyword search bar for title/actor
+- [ ] Have a different backup source to find images for movies, like an API (https://api.movieposterdb.com/docs).
+- [ ] Pass state from MovieList to FilterForm to hold current filter state when dialog is opened (vs it being in default state on open)
+- [ ] Change genre selection in FilterForm to use [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/) or something similar, so to not have 40 checkboxes be overwhelming.
+- [ ] Add navigation bar if more pages added.
+- [ ] Add `like` icon on each movie
+- [ ] Add recommendations based on genre/actor
 
 ## 📫 Contact
 - GitHub: [@kimmykokonut](https://github.com/kimmykokonut)

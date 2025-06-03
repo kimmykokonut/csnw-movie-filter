@@ -93,7 +93,7 @@
 - **Pass Data via Router State**
   - [Passing Data/States Through React Router (dev.to)](https://dev.to/thatfemicode/passing-data-states-through-react-router-8dh)
 
-### Modals & Forms
+### React & MUI: Modals, Forms, Tables
 
 - **MUI Modal**
   - [MUI Modal Component](https://mui.com/material-ui/react-modal/)
@@ -102,7 +102,20 @@
   - [React Input Component Reference](https://react.dev/reference/react-dom/components/input)
   - [MDN: Input Checkbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox#value)
   - [MDN: FormData.get()](https://developer.mozilla.org/en-US/docs/Web/API/FormData/get)
+- **MUI Tables**
+  - [MUI Table Component](https://mui.com/material-ui/react-table/)
+- **MUI Select**
+  - [MUI Select Component](https://mui.com/material-ui/react-select/)
+- **Conditional Rendering in React**
+  - [React: Conditional Rendering (Official Docs)](https://react.dev/learn/conditional-rendering)
 
-### React
-  - [Conditionally render views]()
-  - [MUI Tables](https://mui.com/material-ui/react-table/)
+---
+
+## 🤖 AI-Assisted Development
+
+Throughout this project, I leveraged AI-powered tools (such as GitHub Copilot and modern AI assistants) to:
+- Troubleshoot code and resolve syntax issues
+- Research best practices and clarify documentation
+
+I used AI as a productivity and learning aid, ensuring that all architectural decisions, implementation details, and code reviews were thoughtfully performed by me.
+- [Responsible Use of GitHub Copilot](https://docs.github.com/en/copilot/responsible-use-of-github-copilot-features/responsible-use-of-github-copilot-chat-in-your-ide)
