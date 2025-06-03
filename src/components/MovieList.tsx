@@ -11,7 +11,7 @@ import Movie from "./Movie";
 
 const MovieList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage] = useState<number>(12);
+  const [itemsPerPage] = useState<number>(24);
   const [movies, setMovies] = useState<MovieAPIInterface[]>([]);
   const [allMovies, setAllMovies] = useState<MovieAPIInterface[]>([]);
   const [openFilter, setOpenFilter] = useState(false);
@@ -107,31 +107,50 @@ const MovieList = () => {
 
       <hr />
       {/* List of movie results */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "1rem",
-        }}
-      >
-        {currentMovies.map((movie, index) => (
-          <Link
-            to={`/${encodeURIComponent(movie.title)}`}
-            state={{ movie }}
-            key={movie.title}
-          >
-            <Movie
-              key={index}
-              title={movie.title}
-              year={movie.year}
-              href={movie.href}
-              thumbnail={movie.thumbnail}
-              genres={movie.genres}
-            />
-          </Link>
-        ))}
-      </div>
+      {/* Grid View  */}
+      {currentView === "grid" ? (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "1rem",
+          }}
+        >
+          {currentMovies.map((movie, index) => (
+            <Link
+              to={`/${encodeURIComponent(movie.title)}`}
+              state={{ movie }}
+              key={movie.title}
+            >
+              <Movie
+                key={index}
+                title={movie.title}
+                year={movie.year}
+                href={movie.href}
+                thumbnail={movie.thumbnail}
+                genres={movie.genres}
+              />
+            </Link>
+          ))}
+        </div>
+      ) : (
+        // List View
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Genres</th>
+            <th>Year</th>
+          </tr>
+          {currentMovies.map((movie, index) => (
+            <tr key={index}>
+              <td>{movie.title}</td>
+              <td>{movie.genres}</td>
+              <td>{movie.year}</td>
+            </tr>
+          ))}
+        </table>
+      )}
       {/* Pagination of results */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <Pagination
