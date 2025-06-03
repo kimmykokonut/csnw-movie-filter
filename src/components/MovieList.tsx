@@ -2,6 +2,13 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { Button, Dialog, IconButton, Pagination } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { MovieAPIInterface } from "../models";
@@ -136,20 +143,46 @@ const MovieList = () => {
         </div>
       ) : (
         // List View
-        <table>
-          <tr>
-            <th>Title</th>
-            <th>Genres</th>
-            <th>Year</th>
-          </tr>
-          {currentMovies.map((movie, index) => (
-            <tr key={index}>
-              <td>{movie.title}</td>
-              <td>{movie.genres}</td>
-              <td>{movie.year}</td>
-            </tr>
-          ))}
-        </table>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="table of movie data">
+            <TableHead>
+              <TableRow>
+                <TableCell>Title</TableCell>
+                <TableCell align="left">Genres</TableCell>
+                <TableCell align="right">Year</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {currentMovies.map((movie, index) => (
+                <TableRow
+                  key={index}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {movie.title}
+                  </TableCell>
+                  <TableCell align="left">{movie.genres}</TableCell>
+                  <TableCell align="right">{movie.year}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        // <table>
+        //   <tr>
+        //     <th>Title</th>
+        //     <th>Genres</th>
+        //     <th>Year</th>
+        //   </tr>
+        //   {currentMovies.map((movie, index) => (
+        //     <tr key={index}>
+        //       <td>{movie.title}</td>
+        //       <td>{movie.genres}</td>
+        //       <td>{movie.year}</td>
+        //     </tr>
+        //   ))}
+        // </table>
       )}
       {/* Pagination of results */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>

@@ -102,3 +102,7 @@
   - [React Input Component Reference](https://react.dev/reference/react-dom/components/input)
   - [MDN: Input Checkbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox#value)
   - [MDN: FormData.get()](https://developer.mozilla.org/en-US/docs/Web/API/FormData/get)
+
+### React
+  - [Conditionally render views]()
+  - [MUI Tables](https://mui.com/material-ui/react-table/)
