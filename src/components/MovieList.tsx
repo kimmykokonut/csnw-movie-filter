@@ -1,7 +1,14 @@
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { Button, Dialog, IconButton, Pagination } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  IconButton,
+  Pagination,
+} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -26,16 +33,23 @@ const MovieList: React.FC = () => {
   const [genreFilter, setGenreFilter] = useState<string>("");
   const [genres, setGenres] = useState<string[]>([]);
   const [currentView, setCurrentView] = useState<"grid" | "list">("grid");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
-      const [movieData, genreData] = await Promise.all([
-        fetchMovies(),
-        fetchGenres(),
-      ]);
-      setMovies(movieData);
-      setAllMovies(movieData);
-      setGenres(genreData);
+      try {
+        const [movieData, genreData] = await Promise.all([
+          fetchMovies(),
+          fetchGenres(),
+        ]);
+        setMovies(movieData);
+        setAllMovies(movieData);
+        setGenres(genreData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     loadData();
   }, []);
@@ -50,7 +64,6 @@ const MovieList: React.FC = () => {
     // reset filter display
     setDecadeFilter("1900-2023");
     setGenreFilter("");
-
     // filter by decade
     if (filters.decade.length > 0) {
       const decadeStart = parseInt(filters.decade);
@@ -59,7 +72,6 @@ const MovieList: React.FC = () => {
       });
       setDecadeFilter(`${filters.decade}s`);
     }
-
     // if user chose genre, filter current movies by selected genres.
     if (filters.genres) {
       const selectedGenres = filters.genres;
@@ -68,7 +80,6 @@ const MovieList: React.FC = () => {
       );
       setGenreFilter(selectedGenres.join(", "));
     }
-
     setMovies(filteredMovies);
     setCurrentPage(1);
     setOpenFilter(false);
@@ -77,6 +88,46 @@ const MovieList: React.FC = () => {
   const toggleView = (): void => {
     setCurrentView((view) => (view === "list" ? "grid" : "list"));
   };
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
+        <CircularProgress color="secondary" />
+      </Box>
+    );
+  }
+
+  if (movies.length === 0) {
+    return (
+      <Box>
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<FilterListIcon />}
+          onClick={() => setOpenFilter(true)}
+        >
+          Filter
+        </Button>
+        <Dialog
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          aria-labelledby="filter-dialog-title"
+          disableRestoreFocus
+          maxWidth="sm"
+          fullWidth
+        >
+          <FilterForm
+            onClose={() => setOpenFilter(false)}
+            onSubmit={handleFilter}
+            genres={genres}
+          />
+        </Dialog>
+        <Box>
+          <h2>No movies have been found. Try a different filter</h2>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <>
