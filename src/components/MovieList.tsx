@@ -39,30 +39,30 @@ const MovieList = () => {
   const currentMovies = movies.slice(startIndex, endIndex);
 
   const handleFilter = (filters: { decade: string; genres?: string[] }) => {
-    setMovies(allMovies);
+    let filteredMovies = allMovies;
+    // reset filter display
     setDecadeFilter("1900-2023");
     setGenreFilter("");
 
     // filter by decade
     if (filters.decade.length > 0) {
       const decadeStart = parseInt(filters.decade);
-      const filteredByDecade = allMovies.filter((movie) => {
+      filteredMovies = filteredMovies.filter((movie) => {
         return movie.year >= decadeStart && movie.year < decadeStart + 10;
       });
-      setMovies(filteredByDecade);
       setDecadeFilter(`${filters.decade}s`);
     }
 
     // if user chose genre, filter current movies by selected genres.
     if (filters.genres) {
       const selectedGenres = filters.genres;
-      const filteredByGenre = movies.filter((movie) =>
+      filteredMovies = filteredMovies.filter((movie) =>
         movie.genres.some((movieGenre) => selectedGenres.includes(movieGenre))
       );
-      setMovies(filteredByGenre);
       setGenreFilter(selectedGenres.join(", "));
     }
 
+    setMovies(filteredMovies);
     setCurrentPage(1);
     setOpenFilter(false);
   };
