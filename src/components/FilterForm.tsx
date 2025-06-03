@@ -72,7 +72,7 @@ const FilterForm: React.FC<FilterFormProps> = ({
                 }
                 size="small"
               >
-                <MenuItem value="">All Decades</MenuItem>
+                <MenuItem value="">All(1900-2023)</MenuItem>
                 <MenuItem value="1900">1900s</MenuItem>
                 <MenuItem value="1910">1910s</MenuItem>
                 <MenuItem value="1920">1920s</MenuItem>

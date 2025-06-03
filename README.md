@@ -3,6 +3,19 @@ _by [Kim Robinson](https://github.com/kimmykokonut)_
 
 <a href="https://film-finder-sigma-black.vercel.app/" alt="hosted site">See it live on Vercel</a>
 
+<div style="display: flex; justify-content: space-around;">
+  <div style="width: 33%;">
+  <img src="./src/assets/movies-grid.png" alt="Movies list page as cards" width="100%">
+  </div>
+    <div style="width: 33%;">
+  <img src="./src/assets/movies-list.png" alt="Movie list page" width="100%">
+  </div>
+  <div style="width: 33%;">
+  <img src="./src/assets/details-page.png" alt="Movie detail page" width="100%">
+  </div>
+  </div>
+
+
 ### 🎯 Assignment:
   - Write a simple website that utilizes [wikipedia movie data](https://github.com/prust/wikipedia-movie-data) to display a list of movies
    - create a filter for decade
@@ -67,18 +80,19 @@ _by [Kim Robinson](https://github.com/kimmykokonut)_
 ## ⏫ Level Up
 - [ ] Movie recommendations based on selected genres.
 - [ ] Backend integration with Express.js with SQLite.
-- [ ] Move api url's to .env for production (didn't want to make extra work for reviewers setting up project)
+- [ ] Move api url's to .env for production (didn't want to make extra work for reviewers setting up project).
 - [ ] Infinite scroll instead of pagination (react-infinite-scroller library). Intention was to not lean on libraries.
 - [ ] Memoization with useMemo for filtered results
 - [ ] User authentication
 - [ ] Enhanced MUI theming and styling - felt out of scope for project goals/time
-- [ ] Add keyword search bar for title/actor
+- [ ] Add keyword search bar for title/actor.
 - [ ] Have a different backup source to find images for movies, like an API (https://api.movieposterdb.com/docs).
 - [ ] Pass state from MovieList to FilterForm to hold current filter state when dialog is opened (vs it being in default state on open)
 - [ ] Change genre selection in FilterForm to use [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/) or something similar, so to not have 40 checkboxes be overwhelming.
 - [ ] Add navigation bar if more pages added.
-- [ ] Add `like` icon on each movie
-- [ ] Add recommendations based on genre/actor
+- [ ] Add `like` icon on each movie and add functionality.
+- [ ] Add recommendations based on genre/actor.
+- [ ] Improve image of movie poster, provided thumbnail sizes vary, and fallback image has space on top. Could be more consistent, but CSS is not the main focus.
 
 ## 📫 Contact
 - GitHub: [@kimmykokonut](https://github.com/kimmykokonut)
