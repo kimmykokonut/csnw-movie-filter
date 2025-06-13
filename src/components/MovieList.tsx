@@ -42,8 +42,10 @@ const MovieList: React.FC = () => {
           fetchMovies(),
           fetchGenres(),
         ]);
-        setMovies(movieData);
-        setAllMovies(movieData);
+        // sort movies with most recent first
+        const newestSortMovies = movieData.sort((a, b) => b.year - a.year);
+        setMovies(newestSortMovies);
+        setAllMovies(newestSortMovies);
         setGenres(genreData);
       } catch (error) {
         console.error("Error loading data:", error);
@@ -75,9 +77,11 @@ const MovieList: React.FC = () => {
     // if user chose genre, filter current movies by selected genres.
     if (filters.genres) {
       const selectedGenres = filters.genres;
-      filteredMovies = filteredMovies.filter((movie) =>
-        movie.genres.some((movieGenre) => selectedGenres.includes(movieGenre))
-      );
+      filteredMovies = filteredMovies.filter((movie) => {
+        return selectedGenres.every((movieGenre) =>
+          movie.genres.includes(movieGenre)
+        );
+      });
       setGenreFilter(selectedGenres.join(", "));
     }
     setMovies(filteredMovies);
