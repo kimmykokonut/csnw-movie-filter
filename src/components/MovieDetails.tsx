@@ -1,8 +1,9 @@
 import { Button, Chip } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import fallback from "../assets/movie-fallback.jpg";
 
 const MovieDetails = () => {
+  const nav = useNavigate();
   const location = useLocation();
   const movie = location.state?.movie;
 
@@ -10,7 +11,14 @@ const MovieDetails = () => {
 
   return (
     <>
-      {/* Title, Image and Description */}
+      {/* TODO: fix layout styling */}
+      <button
+        onClick={() => {
+          nav(-1);
+        }}
+      >
+        Back up
+      </button>
       <h2>
         {movie.title} ({movie.year})
       </h2>

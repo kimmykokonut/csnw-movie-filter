@@ -18,6 +18,7 @@ const Movie: React.FC<MovieCardInterface> = ({
     <Card
       sx={{
         width: 300,
+        height: 425,
         backgroundColor: "paperwhite",
       }}
     >
